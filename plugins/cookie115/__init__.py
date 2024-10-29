@@ -76,6 +76,8 @@ class Cookie115(_PluginBase):
         """
 
         cookie_dict = self.systemconfig.get(SystemConfigKey.User115Params)
+        if cookie_dict:
+            cookie_dict = '; '.join(key + '=' + str(val) for key, val in cookie_dict.items())
 
         return [
             {
