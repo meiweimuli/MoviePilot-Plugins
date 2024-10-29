@@ -14,7 +14,7 @@ class Cookie115(_PluginBase):
     # 插件图标
     plugin_icon = "Filerun_A.png"
     # 插件版本
-    plugin_version = "1.3"
+    plugin_version = "1.4"
     # 插件作者
     plugin_author = "gczran"
     # 作者主页

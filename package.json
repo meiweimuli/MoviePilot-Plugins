@@ -3,11 +3,12 @@
         "name": "cookie115",
         "description": "使用Cookie登录115网盘以及获取已登录115网盘的Cookie。",
         "labels": "115",
-        "version": "1.3",
+        "version": "1.4",
         "icon": "signin.png",
         "author": "gczran",
         "level": 1,
         "history": {
+            "v1.4": "测试插件安装",
             "v1.3": "测试插件安装",
             "v1.2": "测试插件安装",
             "v1.1": "测试插件安装",
