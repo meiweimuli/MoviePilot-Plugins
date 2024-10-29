@@ -1,8 +1,9 @@
+import json
 from typing import Any, List, Dict, Tuple
 
-from app.plugins import _PluginBase
-
 from app.log import logger
+from app.plugins import _PluginBase
+from app.schemas.types import SystemConfigKey
 
 
 class Cookie115(_PluginBase):
@@ -13,7 +14,7 @@ class Cookie115(_PluginBase):
     # 插件图标
     plugin_icon = "Filerun_A.png"
     # 插件版本
-    plugin_version = "1.0"
+    plugin_version = "1.3"
     # 插件作者
     plugin_author = "gczran"
     # 作者主页
@@ -31,6 +32,10 @@ class Cookie115(_PluginBase):
         if config:
             cookie = config.get("cookie")
             logger.info(f"保存cookie：{cookie}")
+
+            # self.systemconfig.set(SystemConfigKey.User115Params, credential.to_dict())
+
+            self.update_config({})
 
     def get_state(self) -> bool:
         """
@@ -69,6 +74,9 @@ class Cookie115(_PluginBase):
         """
         拼装插件配置页面，需要返回两块数据：1、页面配置；2、数据结构
         """
+
+        cookie_dict = self.systemconfig.get(SystemConfigKey.User115Params)
+
         return [
             {
                 'component': 'VForm',
@@ -85,7 +93,7 @@ class Cookie115(_PluginBase):
                 ]
             }
         ], {
-            "cookie": "",
+            "cookie": json.dumps(cookie_dict),
         }
 
     def get_page(self) -> List[dict]:
