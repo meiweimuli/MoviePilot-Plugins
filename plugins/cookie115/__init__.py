@@ -32,6 +32,39 @@ class Cookie115(_PluginBase):
             cookie = config.get("cookie")
             logger.info(f"保存cookie：{cookie} ...")
 
+    def get_state(self) -> bool:
+        """
+        获取插件运行状态
+        """
+        pass
+
+    @staticmethod
+    def get_command() -> List[Dict[str, Any]]:
+        """
+        注册插件远程命令
+        [{
+            "cmd": "/xx",
+            "event": EventType.xx,
+            "desc": "名称",
+            "category": "分类，需要注册到Wechat时必须有分类",
+            "data": {}
+        }]
+        """
+        pass
+
+    def get_api(self) -> List[Dict[str, Any]]:
+        """
+        注册插件API
+        [{
+            "path": "/xx",
+            "endpoint": self.xxx,
+            "methods": ["GET", "POST"],
+            "summary": "API名称",
+            "description": "API说明"
+        }]
+        """
+        pass
+
     def get_form(self) -> Tuple[List[dict], Dict[str, Any]]:
         """
         拼装插件配置页面，需要返回两块数据：1、页面配置；2、数据结构
@@ -54,3 +87,16 @@ class Cookie115(_PluginBase):
         ], {
             "cookie": "",
         }
+
+    def get_page(self) -> List[dict]:
+        """
+        拼装插件详情页面，需要返回页面配置，同时附带数据
+        插件详情页面使用Vuetify组件拼装，参考：https://vuetifyjs.com/
+        """
+        pass
+
+    def stop_service(self):
+        """
+        停止插件
+        """
+        pass
