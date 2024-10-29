@@ -30,7 +30,7 @@ class Cookie115(_PluginBase):
         # 配置
         if config:
             cookie = config.get("cookie")
-            logger.info(f"保存cookie：{cookie} ...")
+            logger.info(f"保存cookie：{cookie}")
 
     def get_state(self) -> bool:
         """
@@ -76,7 +76,7 @@ class Cookie115(_PluginBase):
                     {
                         'component': 'VTextarea',
                         'props': {
-                            'model': 'address',
+                            'model': 'cookie',
                             'label': 'Cookie',
                             'rows': 3,
                             'placeholder': ''
