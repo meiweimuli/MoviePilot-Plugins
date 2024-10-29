@@ -14,7 +14,7 @@ class Cookie115(_PluginBase):
     # 插件图标
     plugin_icon = "Filerun_A.png"
     # 插件版本
-    plugin_version = "1.4"
+    plugin_version = "1.5"
     # 插件作者
     plugin_author = "gczran"
     # 作者主页
@@ -33,7 +33,9 @@ class Cookie115(_PluginBase):
             cookie = config.get("cookie")
             logger.info(f"保存cookie：{cookie}")
 
-            # self.systemconfig.set(SystemConfigKey.User115Params, credential.to_dict())
+            if cookie:
+                cookies = dict([l.split("=",1) for l in cookie.split("; ")])
+                self.systemconfig.set(SystemConfigKey.User115Params, cookies)
 
             self.update_config({})
 
@@ -78,6 +80,8 @@ class Cookie115(_PluginBase):
         cookie_dict = self.systemconfig.get(SystemConfigKey.User115Params)
         if cookie_dict:
             cookie_dict = '; '.join(key + '=' + str(val) for key, val in cookie_dict.items())
+        else:
+            cookie_dict = '-'
 
         return [
             {
@@ -95,7 +99,7 @@ class Cookie115(_PluginBase):
                 ]
             }
         ], {
-            "cookie": json.dumps(cookie_dict),
+            "cookie": cookie_dict,
         }
 
     def get_page(self) -> List[dict]:
