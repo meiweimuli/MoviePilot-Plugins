@@ -22,7 +22,7 @@ from app.utils.dom import DomUtils
 from app.utils.http import RequestUtils
 
 
-class DoubanRank(_PluginBase):
+class DoubanRankTest(_PluginBase):
     # 插件名称
     plugin_name = "豆瓣榜单订阅(调试)"
     # 插件描述
@@ -36,7 +36,7 @@ class DoubanRank(_PluginBase):
     # 作者主页
     author_url = "https://github.com/jxxghp"
     # 插件配置项ID前缀
-    plugin_config_prefix = "doubanrank_"
+    plugin_config_prefix = "doubanranktest_"
     # 加载顺序
     plugin_order = 6
     # 可使用的用户级别
@@ -155,7 +155,7 @@ class DoubanRank(_PluginBase):
         if self._enabled and self._cron:
             return [
                 {
-                    "id": "DoubanRank",
+                    "id": "DoubanRankTest",
                     "name": "豆瓣榜单订阅服务",
                     "trigger": CronTrigger.from_crontab(self._cron),
                     "func": self.__refresh_rss,
@@ -165,7 +165,7 @@ class DoubanRank(_PluginBase):
         elif self._enabled:
             return [
                 {
-                    "id": "DoubanRank",
+                    "id": "DoubanRankTest",
                     "name": "豆瓣榜单订阅服务",
                     "trigger": CronTrigger.from_crontab("0 8 * * *"),
                     "func": self.__refresh_rss,
@@ -407,10 +407,10 @@ class DoubanRank(_PluginBase):
                             },
                             'events': {
                                 'click': {
-                                    'api': 'plugin/DoubanRank/delete_history',
+                                    'api': 'plugin/DoubanRankTest/delete_history',
                                     'method': 'get',
                                     'params': {
-                                        'key': f"doubanrank: {title} (DB:{doubanid})",
+                                        'key': f"doubanranktest: {title} (DB:{doubanid})",
                                         'apikey': settings.API_TOKEN
                                     }
                                 }
@@ -580,7 +580,7 @@ class DoubanRank(_PluginBase):
                         mtype = MediaType.MOVIE
                     elif type_str:
                         mtype = MediaType.TV
-                    unique_flag = f"doubanrank: {title} (DB:{douban_id})"
+                    unique_flag = f"doubanranktest: {title} (DB:{douban_id})"
                     # 检查是否已处理过
                     if unique_flag in [h.get("unique") for h in history]:
                         continue
