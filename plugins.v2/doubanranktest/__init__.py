@@ -575,8 +575,6 @@ class DoubanRankTest(_PluginBase):
                     douban_id = rss_info.get('doubanid')
                     year = rss_info.get('year')
                     type_str = rss_info.get('type')
-                    logger.warn(f'豆瓣ID {douban_id} 类型：{type_str}')
-                    info = MediaChain().douban_info(doubanid='37004561')
                     logger.warn(f'豆瓣信息 {info}')
                     if type_str == "movie":
                         mtype = MediaType.MOVIE
@@ -593,31 +591,31 @@ class DoubanRankTest(_PluginBase):
                         meta.type = mtype
                     if meta.type not in (MediaType.MOVIE, MediaType.TV):
                         meta.type = None
-                    # 识别媒体信息
-                    if douban_id:
-                        # 识别豆瓣信息
-                        if settings.RECOGNIZE_SOURCE == "themoviedb":
-                            tmdbinfo = MediaChain().get_tmdbinfo_by_doubanid(doubanid=douban_id, mtype=meta.type)
-                            if not tmdbinfo:
-                                logger.warn(
-                                    f'未能通过豆瓣ID {douban_id} 获取到TMDB信息，标题：{title}，豆瓣ID：{douban_id}')
-                                continue
-                            meta.type = tmdbinfo.get('media_type')
-                            mediainfo = self.chain.recognize_media(meta=meta, tmdbid=tmdbinfo.get("id"))
-                            if not mediainfo:
-                                logger.warn(f'TMDBID {tmdbinfo.get("id")} 未识别到媒体信息')
-                                continue
-                        else:
-                            mediainfo = self.chain.recognize_media(meta=meta, doubanid=douban_id)
-                            if not mediainfo:
-                                logger.warn(f'豆瓣ID {douban_id} 未识别到媒体信息')
-                                continue
-                    else:
-                        # 匹配媒体信息
-                        mediainfo: MediaInfo = self.chain.recognize_media(meta=meta)
-                        if not mediainfo:
-                            logger.warn(f'未识别到媒体信息，标题：{title}，豆瓣ID：{douban_id}')
-                            continue
+#                     # 识别媒体信息
+#                     if douban_id:
+#                         # 识别豆瓣信息
+#                         if settings.RECOGNIZE_SOURCE == "themoviedb":
+#                             tmdbinfo = MediaChain().get_tmdbinfo_by_doubanid(doubanid=douban_id, mtype=meta.type)
+#                             if not tmdbinfo:
+#                                 logger.warn(
+#                                     f'未能通过豆瓣ID {douban_id} 获取到TMDB信息，标题：{title}，豆瓣ID：{douban_id}')
+#                                 continue
+#                             meta.type = tmdbinfo.get('media_type')
+#                             mediainfo = self.chain.recognize_media(meta=meta, tmdbid=tmdbinfo.get("id"))
+#                             if not mediainfo:
+#                                 logger.warn(f'TMDBID {tmdbinfo.get("id")} 未识别到媒体信息')
+#                                 continue
+#                         else:
+#                             mediainfo = self.chain.recognize_media(meta=meta, doubanid=douban_id)
+#                             if not mediainfo:
+#                                 logger.warn(f'豆瓣ID {douban_id} 未识别到媒体信息')
+#                                 continue
+#                     else:
+#                         # 匹配媒体信息
+                    mediainfo: MediaInfo = self.chain.recognize_media(meta=meta)
+                    if not mediainfo:
+                        logger.warn(f'未识别到媒体信息，标题：{title}，豆瓣ID：{douban_id}')
+                        continue
                     # 判断评分是否符合要求
                     if self._vote and mediainfo.vote_average < self._vote:
                         logger.info(f'{mediainfo.title_year} 评分不符合要求')
