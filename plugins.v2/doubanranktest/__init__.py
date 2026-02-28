@@ -576,6 +576,8 @@ class DoubanRankTest(_PluginBase):
                     year = rss_info.get('year')
                     type_str = rss_info.get('type')
                     logger.warn(f'豆瓣ID {douban_id} 类型：{type_str}')
+                    info = MediaChain().douban_info(doubanid='37004561')
+                    logger.warn(f'豆瓣信息 {info}')
                     if type_str == "movie":
                         mtype = MediaType.MOVIE
                     elif type_str:
